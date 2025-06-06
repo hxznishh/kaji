@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GAMMA 2426 Class Website</title>
+<style>
+  /* Import Google Fonts - Poppins */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+  :root {
+    --color-bg: #121217;
+    --color-bg-alt: #1e1e2f;
+    --color-primary: #7f5af0;
+    --color-primary-light: #9a82ff;
+    --color-white: #eaeaff;
+    --color-gray: #999bbb;
+    --color-gray-light: #bbbde1;
+    --color-text: #cdd6f4;
+    --font-family: 'Poppins', sans-serif;
+
+    --shadow-light: rgba(127, 90, 240, 0.48);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    color: var(--color-primary-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  a:hover,
+  a:focus {
+    color: var(--color-primary);
+    outline: none;
+  }
+
+  h1, h2, h3, h4 {
+    margin: 0 0 1rem;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  p {
+    color: var(--color-gray-light);
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--color-bg-alt);
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(20,17,51,0.7);
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    user-select: none;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  nav button {
+    background: none;
+    border: none;
+    color: var(--color-gray);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  nav button:hover,
+  nav button:focus {
+    color: var(--color-primary-light);
+    background-color: rgba(127,90,240,0.15);
+    outline: none;
+    transform: scale(1.05);
+  }
+  
+  nav button.active {
+    color: var(--color-primary);
+    background-color: rgba(127,90,240,0.3);
+    cursor: default;
+    transform: none;
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+    min-height: 70vh;
+  }
+
+  section.page {
+    display: none;
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  section.page.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+  /* Home Page */
+  #home h1 {
+    font-size: 3rem;
+  }
+  #home p.subtitle {
+    font-size: 1.25rem;
+    margin-top: 0;
+    max-width: 600px;
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+
+  #home .info-card {
+    background: var(--color-bg-alt);
+    margin-top: 3rem;
+    padding: 1.75rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px var(--shadow-light);
+    color: var(--color-gray-light);
+    font-size: 1.15rem;
+    max-width: 650px;
+  }
+
+  /* Members Page */
+  #members .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+    gap: 1.5rem;
+  }
+
+  .member-card {
+    background: var(--color-bg-alt);
+    border-radius: 20px;
+    box-shadow: 0 6px 18px var(--shadow-light);
+    text-align: center;
+    padding: 1.5rem 1rem 2rem;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .member-card:hover {
+    box-shadow: 0 20px 40px var(--shadow-light);
+    transform: translateY(-6px) scale(1.03);
+  }
+  .member-photo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--color-primary-light);
+    margin-bottom: 0.75rem;
+    box-shadow: 0 0 10px var(--color-primary-light);
+  }
+
+  .member-name {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--color-white);
+    user-select: none;
+  }
+
+  /* Member Detail Page */
+  #member-detail {
+    padding: 2rem;
+    background: var(--color-bg-alt);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px var(--shadow-light);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  #member-detail .close-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-primary-light);
+    font-weight: 600;
+    font-size: 1.5rem;
+    cursor: pointer;
+    float: right;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    user-select:none;
+  }
+  #member-detail .close-btn:hover,
+  #member-detail .close-btn:focus {
+    color: var(--color-primary);
+    outline: none;
+  }
+
+  #member-detail .member-photo-large {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 4px solid var(--color-primary-light);
+    box-shadow: 0 0 20px var(--color-primary-light);
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 1rem;
+  }
+  #member-detail h2 {
+    color: var(--color-primary-light);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  #member-detail p {
+    color: var(--color-gray-light);
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  /* Album Page */
+  #album {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  #album .upload-area {
+    border: 2px dashed var(--color-primary);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--color-primary-light);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  #album .upload-area:hover,
+  #album .upload-area:focus-within {
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+    outline: none;
+  }
+  #album input[type="file"] {
+    display: none;
+  }
+  #album .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
+    gap: 1.25rem;
+  }
+  #album .gallery img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(127,90,240,0.6);
+    object-fit: cover;
+    cursor: default;
+    transition: transform 0.3s ease;
+  }
+  #album .gallery img:hover {
+    transform: scale(1.07) rotate(1.5deg);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    #home h1 {
+      font-size: 2.2rem;
+    }
+    #member-detail {
+      padding: 1.2rem;
+      max-width: 100%;
+    }
+  }
+
+  /* Screen reader only text */
+  .sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0,0,0,0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">GAMMA 2426</div>
+  <nav role="navigation" aria-label="Main Navigation">
+    <button class="active" data-target="home" aria-current="page">Home</button>
+    <button data-target="members">Members</button>
+    <button data-target="album">Album</button>
+  </nav>
+</header>
+
+<main>
+  <!-- Home Page -->
+  <section id="home" class="page active" role="main" aria-label="Class Home">
+    <h1>Welcome to GAMMA 2426</h1>
+    <p class="subtitle">This is the official class website of GAMMA 2426. Here you will find information about your class, meet your classmates, and share memories through our album.</p>
+    <div class="info-card" aria-live="polite">
+      <h2>About Our Class</h2>
+      <p>GAMMA 2426 is a vibrant, diverse group of 22 students united by a passion for learning and growth. Our class values collaboration, respect, and creativity. Together, we aim to create a supportive environment that nurtures academic achievement and lifelong friendships.</p>
+      <p>Feel free to explore the pages to get to know your classmates better and add new memories to our album!</p>
+    </div>
+  </section>
+
+  <!-- Members Page -->
+  <section id="members" class="page" role="region" aria-label="Class Members">
+    <h2>Class Members (22)</h2>
+    <div class="grid" id="memberGrid" tabindex="0">
+      <!-- Member cards will be inserted here by JS -->
+    </div>
+  </section>
+
+  <!-- Member Detail Page -->
+  <section id="member-detail" class="page" aria-live="polite" aria-label="Member Detail" tabindex="-1">
+    <button class="close-btn" aria-label="Close Member Details">&times;</button>
+    <img src="" alt="" class="member-photo-large" />
+    <h2></h2>
+    <p></p>
+  </section>
+
+  <!-- Album Page -->
+  <section id="album" class="page" role="region" aria-label="Class Album">
+    <h2>Class Album</h2>
+    <label for="photoUpload" class="upload-area" tabindex="0" role="button" aria-describedby="uploadDesc">
+      Click or tap here to add photos to the album
+      <div id="uploadDesc" class="sr-only">File upload input for adding photos to the album</div>
+    </label>
+    <input type="file" id="photoUpload" accept="image/*" multiple aria-label="Upload photos to album"/>
+    <div class="gallery" id="gallery">
+      <!-- Photos inserted here -->
+    </div>
+  </section>
+</main>
+
+<script>
+  // Member data: 22 members including you
+  const members = [
+    { id: 1, name: "Alex Johnson", detail: "Class President, passionate about robotics and technology.", photo: "https://randomuser.me/api/portraits/men/32.jpg" },
+    { id: 2, name: "Bella Davis", detail: "An avid painter and musician, loves to organize events.", photo: "https://randomuser.me/api/portraits/women/65.jpg" },
+    { id: 3, name: "Carlos Medina", detail: "Soccer enthusiast and aspiring engineer.", photo: "https://randomuser.me/api/portraits/men/44.jpg" },
+    { id: 4, name: "Diana Chen", detail: "Math genius and chess club leader.", photo: "https://randomuser.me/api/portraits/women/80.jpg" },
+    { id: 5, name: "Ethan Brooks", detail: "Tech-savvy coder and volunteer tutor.", photo: "https://randomuser.me/api/portraits/men/22.jpg" },
+    { id: 6, name: "Fiona Patel", detail: "Loves physics and astronomy, member of science club.", photo: "https://randomuser.me/api/portraits/women/45.jpg" },
+    { id: 7, name: "George Kim", detail: "Basketball player and community volunteer.", photo: "https://randomuser.me/api/portraits/men/51.jpg" },
+    { id: 8, name: "Hannah Liu", detail: "Enjoys literature and theatre arts.", photo: "https://randomuser.me/api/portraits/women/12.jpg" },
+    { id: 9, name: "Isaac White", detail: "Coding enthusiast and eSports team captain.", photo: "https://randomuser.me/api/portraits/men/75.jpg" },
+    { id: 10, name: "Julia Martin", detail: "Creative writer and debater.", photo: "https://randomuser.me/api/portraits/women/38.jpg" },
+    { id: 11, name: "Kevin Turner", detail: "Loves gaming and graphic design.", photo: "https://randomuser.me/api/portraits/men/19.jpg" },
+    { id: 12, name: "Luna Rodriguez", detail: "Passionate about environmental activism.", photo: "https://randomuser.me/api/portraits/women/27.jpg" },
+    { id: 13, name: "Mike Evans", detail: "Aspiring filmmaker and photographer.", photo: "https://randomuser.me/api/portraits/men/9.jpg" },
+    { id: 14, name: "Nina Sharma", detail: "A gifted mathlete and pianist.", photo: "https://randomuser.me/api/portraits/women/53.jpg" },
+    { id: 15, name: "Oliver Scott", detail: "Enjoys hiking and outdoor adventures.", photo: "https://randomuser.me/api/portraits/men/30.jpg" },
+    { id: 16, name: "Paula Gomez", detail: "Loves to sing and write poetry.", photo: "https://randomuser.me/api/portraits/women/21.jpg" },
+    { id: 17, name: "Quentin Diaz", detail: "Tech blogger and avid reader.", photo: "https://randomuser.me/api/portraits/men/16.jpg" },
+    { id: 18, name: "Rosa Kim", detail: "Science enthusiast and debate club member.", photo: "https://randomuser.me/api/portraits/women/48.jpg" },
+    { id: 19, name: "Samuel Lee", detail: "Loves coding competitions and music.", photo: "https://randomuser.me/api/portraits/men/70.jpg" },
+    { id: 20, name: "Tina Nguyen", detail: "Enjoys painting and volunteering.", photo: "https://randomuser.me/api/portraits/women/34.jpg" },
+    { id: 21, name: "Victor Hernandez", detail: "A soccer player with a passion for history.", photo: "https://randomuser.me/api/portraits/men/11.jpg" },
+    { id: 22, name: "You (User)", detail: "Member of GAMMA 2426, proud to be part of this amazing class!", photo: "https://randomuser.me/api/portraits/men/15.jpg" }
+  ];
+
+  // DOM references
+  const memberGrid = document.getElementById('memberGrid');
+  const memberDetailSection = document.getElementById('member-detail');
+  const memberDetailPhoto = memberDetailSection.querySelector('.member-photo-large');
+  const memberDetailName = memberDetailSection.querySelector('h2');
+  const memberDetailInfo = memberDetailSection.querySelector('p');
+  const closeDetailBtn = memberDetailSection.querySelector('.close-btn');
+
+  // Navigation buttons
+  const navButtons = document.querySelectorAll('nav button');
+  const pages = document.querySelectorAll('.page');
+
+  // Album elements
+  const photoUploadInput = document.getElementById('photoUpload');
+  const gallery = document.getElementById('gallery');
+
+  // Function to create member cards
+  function createMemberCard(member) {
+    const card = document.createElement('div');
+    card.className = 'member-card';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `View details for ${member.name}`);
+
+    const img = document.createElement('img');
+    img.className = 'member-photo';
+    img.src = member.photo;
+    img.alt = `Photo of ${member.name}`;
+    img.loading = 'lazy';
+
+    const name = document.createElement('div');
+    name.className = 'member-name';
+    name.textContent = member.name;
+
+    card.appendChild(img);
+    card.appendChild(name);
+
+    // Click / key interaction to show detail
+    card.addEventListener('click', () => showMemberDetail(member));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showMemberDetail(member);
+      }
+    });
+    return card;
+  }
+
+  // Render all member cards
+  function loadMembers() {
+    memberGrid.innerHTML = '';
+    members.forEach(m => {
+      const card = createMemberCard(m);
+      memberGrid.appendChild(card);
+    });
+  }
+
+  // Show member detail page
+  function showMemberDetail(member) {
+    memberDetailPhoto.src = member.photo;
+    memberDetailPhoto.alt = `Photo of ${member.name}`;
+    memberDetailName.textContent = member.name;
+    memberDetailInfo.textContent = member.detail;
+
+    // Show member detail section
+    showPage('member-detail');
+    memberDetailSection.focus();
+  }
+
+  closeDetailBtn.addEventListener('click', () => {
+    // Close the detail view and go back to members page
+    showPage('members');
+  });
+
+  // Function to switch pages
+  function showPage(pageId) {
+    pages.forEach(p => {
+      if(p.id === pageId){
+        p.classList.add('active');
+        // If member detail page, set nav buttons inactive
+        if(pageId === 'member-detail'){
+          navButtons.forEach(btn => btn.classList.remove('active'));
+        }
+      } else {
+        p.classList.remove('active');
+      }
+    });
+    // Update nav button active state unless member detail page shown
+    if(pageId !== 'member-detail'){
+      navButtons.forEach(btn => {
+        if(btn.dataset.target === pageId){
+          btn.classList.add('active');
+          btn.setAttribute('aria-current', 'page');
+        } else {
+          btn.classList.remove('active');
+          btn.removeAttribute('aria-current');
+        }
+      });
+    }
+  }
+
+  // Add click listeners to nav buttons
+  navButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // On nav click close member detail if open
+      if(memberDetailSection.classList.contains('active')) {
+        memberDetailSection.classList.remove('active');
+      }
+      const target = btn.dataset.target;
+      showPage(target);
+    });
+
+    // keyboard accessibility - enter/space to activate nav
+    btn.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        btn.click();
+      }
+    });
+  });
+
+  // Photo upload handling for album page
+  photoUploadInput.addEventListener('change', (e) => {
+    const files = Array.from(e.target.files);
+    files.forEach(file => {
+      if(file.type.startsWith('image/')){
+        const reader = new FileReader();
+        reader.onload = function(event){
+          const img = document.createElement('img');
+          img.src = event.target.result;
+          img.alt = 'User uploaded photo';
+          gallery.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+    // Clear input value after upload to allow re-uploading same file if needed
+    e.target.value = '';
+  });
+
+  // Initial load
+  loadMembers();
+</script>
+</body>
+</html>
+
