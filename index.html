@@ -1,0 +1,143 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doraemon's Magic Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #e0f2fe;
+            background-image: radial-gradient(#bae6fd 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .font-fredoka {
+            font-family: 'Fredoka+One', cursive;
+        }
+        .doraemon-blue {
+            background-color: #0093dd;
+        }
+        .doraemon-red {
+            background-color: #e60012;
+        }
+        .doraemon-yellow {
+            background-color: #ffcc00;
+        }
+        .bell-shadow {
+            box-shadow: 0 4px 0px #b38f00;
+        }
+        .card-border {
+            border: 4px solid #0093dd;
+        }
+        .hover-bounce:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+        .animate-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full bg-white rounded-[2.5rem] shadow-2xl overflow-hidden card-border relative">
+        <!-- Top Decoration (Doraemon's Collar) -->
+        <div class="doraemon-red h-8 w-full"></div>
+        
+        <!-- Main Content -->
+        <div class="p-8 text-center">
+            <!-- Bell Icon -->
+            <div class="flex justify-center -mt-12 mb-6">
+                <div class="doraemon-yellow w-16 h-16 rounded-full border-4 border-black flex items-center justify-center bell-shadow">
+                    <div class="w-3 h-3 bg-black rounded-full mb-2"></div>
+                </div>
+            </div>
+
+            <h1 class="font-fredoka text-3xl text-sky-600 mb-2">Anywhere Door</h1>
+            <p class="text-gray-600 mb-8 font-semibold">Enter the secret code from the 4D pocket to proceed!</p>
+
+            <!-- Input Form -->
+            <div class="space-y-4">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="secretCode" 
+                        placeholder="Type code here..." 
+                        class="w-full px-6 py-4 rounded-full border-2 border-sky-200 focus:border-sky-500 focus:outline-none text-center text-lg font-bold text-sky-700 placeholder-sky-300 transition-all"
+                    >
+                </div>
+
+                <button 
+                    onclick="checkCode()" 
+                    class="w-full doraemon-blue text-white font-fredoka py-4 rounded-full text-xl shadow-lg hover:bg-sky-600 transition-all active:scale-95 hover-bounce"
+                >
+                    Open Door! 🚪
+                </button>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="hidden mt-4 p-3 bg-red-100 text-red-600 rounded-xl text-sm font-bold">
+                Oops! Wrong code. Try again!
+            </div>
+
+            <!-- Character Decoration -->
+            <div class="mt-8 flex justify-center opacity-80">
+                <div class="text-4xl">🐱💙✨</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-sky-50 py-4 text-center border-t border-sky-100">
+            <p class="text-xs text-sky-400 font-bold tracking-widest uppercase">Secret Gadget v1.0</p>
+        </div>
+    </div>
+
+    <script>
+        function checkCode() {
+            const inputField = document.getElementById('secretCode');
+            const codeInput = inputField.value.trim().toLowerCase();
+            const errorBox = document.getElementById('errorMessage');
+            const targetUrl = "https://drive.google.com/file/d/1P7ESxrSKspz3Elcsr65vh22YfUtgIAZh/view?usp=drivesdk";
+
+            if (codeInput === "kajihensem") {
+                errorBox.classList.add('hidden');
+                // Success transition
+                document.body.style.transition = "background-color 0.5s";
+                document.body.style.backgroundColor = "#4ade80";
+                
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 400);
+            } else {
+                // Show error message
+                errorBox.classList.remove('hidden');
+                errorBox.classList.remove('animate-shake');
+                void errorBox.offsetWidth; // Trigger reflow for animation restart
+                errorBox.classList.add('animate-shake');
+                
+                // Clear input
+                inputField.value = "";
+                inputField.focus();
+            }
+        }
+
+        // Handle Enter key
+        document.getElementById('secretCode').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkCode();
+            }
+        });
+    </script>
+</body>
+</html>
+
+```
+
